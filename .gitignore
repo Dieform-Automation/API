@@ -96,6 +96,9 @@ ENV/
 #Mac stuff
 .DS_Store
 
+#VS Code
+.vscode/
+
 # Spyder project settings
 .spyderproject
 .spyproject
