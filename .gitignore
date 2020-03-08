@@ -86,7 +86,7 @@ celerybeat-schedule
 *.sage.py
 
 # dotenv
-.env
+*.env
 
 # virtualenv
 .venv
@@ -95,6 +95,9 @@ ENV/
 
 #Mac stuff
 .DS_Store
+
+#VS Code
+.vscode/
 
 # Spyder project settings
 .spyderproject
