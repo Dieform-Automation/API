@@ -12,6 +12,7 @@ class UserDto:
 class CustomerDto:
     api = Namespace('customer', description='customer related operations')
     customer = api.model('customer', {
+        'id': fields.String(required=False, description='id'),
         'name': fields.String(required=True, description='name of the customer'),
         'email': fields.String(required=True, description='customer email'),
         'phone': fields.String(required=True, description='customer phone number'),

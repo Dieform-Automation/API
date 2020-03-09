@@ -95,6 +95,7 @@ ENV/
 
 #Mac stuff
 .DS_Store
+deploy.sh
 
 #VS Code
 .vscode/
