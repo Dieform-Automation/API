@@ -8,12 +8,10 @@ from app import blueprint
 from app.main import create_app, db
 from app.main.model import user, blacklist
 
-
 app = create_app(os.getenv('ENVIRON') or 'dev')
 app.register_blueprint(blueprint)
 
 app.app_context().push()
-
 manager = Manager(app)
 
 migrate = Migrate(app, db)
@@ -22,7 +20,8 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
-    app.run()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
 @manager.command
 def test():
