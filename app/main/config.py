@@ -9,6 +9,7 @@ class Config:
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):
