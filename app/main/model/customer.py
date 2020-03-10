@@ -1,5 +1,7 @@
 from .. import db
 
+from sqlalchemy.orm import relationship
+
 class Customer(db.Model):
     """ Customer Model for storing Dieform customer information """
     __tablename__ = "customer"
@@ -14,6 +16,8 @@ class Customer(db.Model):
     province = db.Column(db.String(255), nullable=False)
     postal_code = db.Column(db.String(255), nullable=False)
     point_of_contact = db.Column(db.String(255), nullable=True)
+
+    parts = relationship("Part")
 
     def __repr__(self):
         return "<Customer '{}'>".format(self.name)

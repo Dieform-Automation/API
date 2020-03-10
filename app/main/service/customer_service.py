@@ -29,9 +29,7 @@ def save_new_customer(data):
         return response_object, 409
 
 def get_all_customers():
-    tmp = Customer.query.all()
-    # import pdb;pdb.set_trace()
-    return tmp
+    return Customer.query.all()
 
 def get_a_customer(id):
     return Customer.query.filter_by(id=id).first()

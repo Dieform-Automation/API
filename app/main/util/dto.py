@@ -9,10 +9,19 @@ class UserDto:
         'public_id': fields.String(description='user Identifier')
     })
 
+class PartDto:
+    api = Namespace('part', description='part related operations')
+    part = api.model('part', {
+        'id': fields.Integer(required=False, description='id'),
+        'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
+        'name': fields.String(required=True, description='name of part'),
+    })
+
 class CustomerDto:
     api = Namespace('customer', description='customer related operations')
     customer = api.model('customer', {
-        'id': fields.String(required=False, description='id'),
+        'id': fields.Integer(required=False, description='id'),
         'name': fields.String(required=True, description='name of the customer'),
         'email': fields.String(required=True, description='customer email'),
         'phone': fields.String(required=True, description='customer phone number'),
