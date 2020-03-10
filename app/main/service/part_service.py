@@ -14,9 +14,12 @@ def save_new_part(data):
             name=data['name']
         )
         save_changes(part)
+        db.session.refresh(part)
+        data['id'] = part.id #get id of newly added data
         response_object = {
             'status': 'success',
             'message': 'Successfully added part.',
+            'data': data
         }
         return response_object, 201
     else:

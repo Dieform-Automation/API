@@ -16,9 +16,12 @@ def save_new_customer(data):
             point_of_contact=data['point_of_contact']
         )
         save_changes(new_customer)
+        db.session.refresh(new_customer)
+        data['id'] = new_customer.id #get id of newly added data
         response_object = {
             'status': 'success',
             'message': 'Successfully added customer.',
+            'data': data
         }
         return response_object, 201
     else:
