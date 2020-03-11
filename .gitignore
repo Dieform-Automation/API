@@ -112,4 +112,3 @@ deploy.sh
 
 # mypy
 .mypy_cache/
-/migrations
