@@ -23,7 +23,7 @@ class OrderDto:
     order = api.model('order', {
         'id': fields.Integer(required=False, description='id'),
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
-        'number': fields.String(required=True, description='order number (internal number used by Dieform)'),
+        'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
     })
 
 class CustomerDto:
