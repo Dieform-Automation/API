@@ -18,6 +18,14 @@ class PartDto:
         'name': fields.String(required=True, description='name of part'),
     })
 
+class OrderDto:
+    api = Namespace('order', description='order related operations')
+    order = api.model('order', {
+        'id': fields.Integer(required=False, description='id'),
+        'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
+        'number': fields.String(required=True, description='order number (internal number used by Dieform)'),
+    })
+
 class CustomerDto:
     api = Namespace('customer', description='customer related operations')
     customer = api.model('customer', {

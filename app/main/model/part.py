@@ -1,7 +1,6 @@
 from .. import db
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
 
 class Part(db.Model):
     """ Part Model for storing Dieform parts info """

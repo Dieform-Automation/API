@@ -5,6 +5,7 @@ from .main.controller.user_controller import api as user_ns
 from .main.controller.auth_controller import api as auth_ns
 from .main.controller.customer_controller import api as customer_ns
 from .main.controller.part_controller import api as part_ns
+from .main.controller.order_controller import api as order_ns
 
 blueprint = Blueprint('api', __name__)
 
@@ -17,4 +18,5 @@ api = Api(blueprint,
 # api.add_namespace(user_ns, path='/user')
 api.add_namespace(customer_ns, path='/customer')
 api.add_namespace(part_ns, path='/part')
+api.add_namespace(order_ns, path='/order')
 # api.add_namespace(auth_ns)
