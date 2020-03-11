@@ -18,6 +18,7 @@ class Customer(db.Model):
     point_of_contact = db.Column(db.String(255), nullable=True)
 
     parts = relationship("Part")
+    orders = relationship("Order")
 
     def __repr__(self):
         return "<Customer '{}'>".format(self.name)

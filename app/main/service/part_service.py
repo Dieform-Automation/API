@@ -1,10 +1,7 @@
 from app.main import db
 from app.main.model.part import Part
 
-from sqlalchemy import and_
-
 def save_new_part(data):
-    tmp = data
     part = Part.query.filter_by(number=data['number'], customer_id=int(data['customer_id'])).first()
     
     if not part:
@@ -25,7 +22,7 @@ def save_new_part(data):
     else:
         response_object = {
             'status': 'fail',
-            'message': 'Part for the same Customer already exists. Please update current customer profile.',
+            'message': 'Part for the same customer already exists. Please update current customer parts.',
         }
         return response_object, 409
 
