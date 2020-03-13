@@ -24,6 +24,7 @@ class OrderDto:
         'id': fields.Integer(required=False, description='id'),
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
+        'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
     })
 
 class CustomerDto:

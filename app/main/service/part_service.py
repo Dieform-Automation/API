@@ -14,15 +14,15 @@ def save_new_part(data):
         db.session.refresh(part)
         data['id'] = part.id # get id of newly created data
         response_object = {
-            'status': 'success',
+            'status': 'Success',
             'message': 'Successfully added part.',
             'data': data
         }
         return response_object, 201
     else:
         response_object = {
-            'status': 'fail',
-            'message': 'Part for the same customer already exists. Please update current customer parts.',
+            'status': 'Fail',
+            'message': 'Part for the same customer already exists.',
         }
         return response_object, 409
 
@@ -43,7 +43,7 @@ def update_part(data):
     else:
         response_object = {
             'status': 'Not Found',
-            'message': 'Part does not exist exists. Please create a new part.',
+            'message': 'Part does not exist exists.',
         }
         return response_object, 404
     
