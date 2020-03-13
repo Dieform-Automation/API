@@ -3,7 +3,8 @@ from flask_restplus import Resource
 
 from ..util.dto import PartDto
 from ..util.decorator import crossdomain, token_required # will be used later
-from ..service.part_service import get_all_parts, get_a_part, save_new_part
+from ..service.part_service import get_all_parts, get_a_part, save_new_part, update_part, get_all_parts_by_customerID
+
 
 api = PartDto.api
 _part = PartDto.part
@@ -15,7 +16,11 @@ class PartList(Resource):
     @api.marshal_list_with(_part, envelope='data')
     def get(self):
         """List all parts"""
-        return get_all_parts()
+        customer_id = request.args.get('customer_id', None)
+        if customer_id:
+            return get_all_parts_by_customerID(int(customer_id));
+        else:
+            return get_all_parts()
 
     @api.response(201, 'Part successfully added.')
     @api.doc('add a new part')
@@ -25,6 +30,16 @@ class PartList(Resource):
         """Creates a new part """
         data = request.json
         return save_new_part(data=data)
+    
+    @api.response(204, 'Successfully updated part.')
+    @api.doc('update a part')
+    @crossdomain(origin='*')
+    @api.expect(_part, validate=True)
+    def put(self):
+        """Updates a part """
+        data = request.json
+        return update_part(data=data)
+
 
 @api.route('/<id>')
 @api.param('id', 'The Part id')
