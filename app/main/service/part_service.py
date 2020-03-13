@@ -12,7 +12,7 @@ def save_new_part(data):
         )
         save_changes(part)
         db.session.refresh(part)
-        data['id'] = part.id #get id of newly added data
+        data['id'] = part.id # get id of newly created data
         response_object = {
             'status': 'success',
             'message': 'Successfully added part.',
@@ -25,6 +25,28 @@ def save_new_part(data):
             'message': 'Part for the same customer already exists. Please update current customer parts.',
         }
         return response_object, 409
+
+def update_part(data):
+    part = Part.query.filter_by(id=data['id']).first()
+    if part:
+        part.id = int(data['id']),
+        part.customer_id = int(data['customer_id'])
+        part.number=data['number']
+        part.name=data['name']
+        db.session.commit()
+        response_object = {
+            'status': 'success',
+            'message': 'Successfully updated part.',
+            'data': data
+        }
+        return response_object, 204
+    else:
+        response_object = {
+            'status': 'Bad Request',
+            'message': 'Part does not exist exists. Please create a new part.',
+        }
+        return response_object, 400
+    
 
 def get_all_parts():
     return Part.query.all()
