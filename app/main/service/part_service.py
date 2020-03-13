@@ -42,10 +42,10 @@ def update_part(data):
         return response_object, 204
     else:
         response_object = {
-            'status': 'Bad Request',
+            'status': 'Not Found',
             'message': 'Part does not exist exists. Please create a new part.',
         }
-        return response_object, 400
+        return response_object, 404
     
 
 def get_all_parts():
