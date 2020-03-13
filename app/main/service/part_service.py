@@ -29,6 +29,10 @@ def save_new_part(data):
 def get_all_parts():
     return Part.query.all()
 
+def get_all_parts_by_customerID(id):
+    parts = Part.query.filter_by(customer_id=id).all()
+    return parts
+
 def get_a_part(id):
     return Part.query.filter_by(id=id).first()
 
