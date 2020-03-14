@@ -61,6 +61,19 @@ def save_new_order(data):
 def get_all_orders():
     return Order.query.all()
 
+def get_all_parts_by_orderID(id):
+    orders = PartOrder.query.filter_by(order_id=id).all()
+    response_object = {'data': []}
+
+    for order in orders:
+        partorder = {
+            'quantity': order.quantity,
+            'part_id': order.part_id
+            }
+        response_object['data'].append(partorder)
+
+    return response_object, 201
+
 def get_an_order(id):
     return Order.query.filter_by(id=id).first()
 

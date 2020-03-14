@@ -1,6 +1,5 @@
 from app.main import db
 from app.main.model.part import Part
-from app.main.model.part_order import PartOrder
 
 def save_new_part(data):
     part = Part.query.filter_by(number=data['number'], customer_id=int(data['customer_id'])).first()
@@ -51,9 +50,6 @@ def get_all_parts():
 
 def get_all_parts_by_customerID(id):
     return Part.query.filter_by(customer_id=id).all()
-
-def get_all_parts_by_orderID(id):
-    return PartOrder.query.filter_by(order_id=id).all()
 
 def get_a_part(id):
     return Part.query.filter_by(id=id).first()
