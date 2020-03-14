@@ -9,26 +9,22 @@ class UserDto:
         'public_id': fields.String(description='user Identifier')
     })
 
-class IncomingPartDto:
+class PartDto:
     api = Namespace('part', description='part related operations')
-    part = api.model('part', {
+    part_incoming = api.model('part', {
         'id': fields.Integer(required=False, description='id'),
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
-class OutgoingPartDto:
-    api = Namespace('part', description='order related operations')
-    part = api.model('part', {
+    part_outgoing = api.model('part', {
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
-class UpdatePartDto:
-    api = Namespace('part', description='part related operations')
-    part = api.model('part', {
+    part_update = api.model('part', {
         'name': fields.String(required=True, description='update name of part'),
     })
 

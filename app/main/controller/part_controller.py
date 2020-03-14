@@ -1,14 +1,14 @@
 from flask import request
 from flask_restplus import Resource
 
-from ..util.dto import OutgoingPartDto, IncomingPartDto, UpdatePartDto
+from ..util.dto import PartDto
 from ..util.decorator import crossdomain, token_required # will be used later
-from ..service.part_service import get_all_parts, get_a_part, save_new_part, update_part, get_all_parts_by_customerID, get_all_parts_by_orderID
+from ..service.part_service import get_all_parts, get_a_part, save_new_part, update_part, get_all_parts_by_customerID
 
-api = OutgoingPartDto.api
-_outgoing_part = OutgoingPartDto.part
-_incoming_part = IncomingPartDto.part
-_update_part = UpdatePartDto.part
+api = PartDto.api
+_outgoing_part = PartDto.part_outgoing
+_incoming_part = PartDto.part_incoming
+_update_part = PartDto.part_update
 
 @api.route('/')
 class PartList(Resource):
