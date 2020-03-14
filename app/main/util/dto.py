@@ -9,10 +9,18 @@ class UserDto:
         'public_id': fields.String(description='user Identifier')
     })
 
-class PartDto:
+class IncomingPartDto:
     api = Namespace('part', description='part related operations')
     part = api.model('part', {
         'id': fields.Integer(required=False, description='id'),
+        'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
+        'name': fields.String(required=True, description='name of part'),
+    })
+
+class OutgoingPartDto:
+    api = Namespace('part', description='order related operations')
+    part = api.model('part', {
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),

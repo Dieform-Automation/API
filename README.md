@@ -5,25 +5,27 @@
 https://shielded-lake-43806.herokuapp.com/
 
 ## Customer
-
-- [x] GET all customers
-- [ ] GET customer by id
-- [ ] POST add customer(name, point_of_contact, email, street, city, province, country, postal code, phone)
-- [ ] POST update customer(name, point_of_contact, email, street, city, province, country, postal code, phone)
-
+| Method | Action | Endpoint  | Arguments | Body | Complete |
+|---|---|---|---|---|:---:|
+|GET | Get all customers | /customer/ | - | - | <ul><li>- [x] </li></ul> |
+|GET | Get customer by id |  /customer/id | - | - | <ul><li>- [x] </li></ul>  |
+|POST| Add customer | /customer/ | -  | name, point_of_contact, email, street, city, province, country, postal code, phone | <ul><li>- [x] </li></ul>  |
+|PUT| Update customer | /customer/id | - | name, point_of_contact, email, street, city, province, country, postal code, phone | <ul><li>- [ ] </li></ul>  |
 
 ## Part
-
-- [ ] GET all parts
-- [ ] GET all parts by customer_id
-- [ ] GET all parts by order_id
-- [ ] GET part by id
-- [ ] POST add new part(number, name, customer_id)
-- [ ] POST update new part(name)
+| Method | Action | Endpoint  | Arguments | Body | Complete |
+|---|---|---|---|---|:---:|
+|GET | Get all parts | /part/ | - | - | <ul><li>- [x] </li></ul> |
+|GET | Get part by id |  /part/id | - | - | <ul><li>- [x] </li></ul>  |
+|GET | Get all parts by customer_id |  /part? | customer_id | - | <ul><li>- [x] </li></ul>  |
+|POST| Add part | /part/ | - | number, name, customer_id | <ul><li>- [x] </li></ul>  |
+|PUT| Update part | /part/id | - | name | <ul><li>- [x] </li></ul>  |
 
 ## Order
-
-- [ ] GET all orders (return parts by order_id)
-- [ ] GET all orders by customer_id
-- [ ] POST add new order(customer_id, order_number, list of part_ids (mapped to quantity))
-- [ ] POST add new part to order(order_id, part_id, quantity)
+| Method | Action | Endpoint  | Arguments | Body | Complete |
+|---|---|---|---|---|:---:|
+|GET | Get all orders | /order/ | - | - | <ul><li>- [ ] </li></ul> |
+|GET | Get order by id |  /order/id | - | - | <ul><li>- [ ] </li></ul>  |
+|GET | Get all orders by customer_id |  /order? | customer_id | - | <ul><li>- [x] </li></ul>  |
+|POST| Add order | /order/ | - | customer_id, order_number, list of part_ids (mapped to quantity) | <ul><li>- [x] </li></ul>  |
+|PUT| Update order | /order/id | - | list of part_ids (mapped to quantity) | <ul><li>- [ ] </li></ul>  |
