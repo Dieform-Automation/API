@@ -18,16 +18,16 @@ https://shielded-lake-43806.herokuapp.com/
 |GET | Get all parts | /part/ | - | - | <ul><li>- [x] </li></ul> |
 |GET | Get part by id |  /part/id | - | - | <ul><li>- [x] </li></ul>  |
 |GET | Get all parts by customer_id |  /part? | customer_id | - | <ul><li>- [x] </li></ul>  |
-|GET | Get all parts by order_id |  /part/order/order_id | - | - | <ul><li>- [x] </li></ul>  |
+|GET | Get all parts by order_id |  /part/order/id | - | - | <ul><li>- [ ] </li></ul>  |
 |POST| Add part | /part/ | - | number, name, customer_id | <ul><li>- [x] </li></ul>  |
 |PUT| Update part | /part/id | - | name | <ul><li>- [x] </li></ul>  |
-|PUT| Add part to order | /part/order/order_id | - | part_id, quantity | <ul><li>- [ ] </li></ul>  |
+|PUT| Add part to order | /part/order/id | - | part_id, quantity | <ul><li>- [ ] </li></ul>  |
 
 ## Order
 | Method | Action | Endpoint  | Arguments | Body | Complete |
 |---|---|---|---|---|:---:|
 |GET | Get all order | /order/ | - | - | <ul><li>- [x] </li></ul> |
 |GET | Get order by id |  /order/id | - | - | <ul><li>- [x] </li></ul>  |
-|GET | Get order by customer_id |  /order? | customer_id | - | <ul><li>- [x] </li></ul>  |
+|GET | Get all orders by customer_id |  /order? | customer_id | - | <ul><li>- [x] </li></ul>  |
 |POST| Add order | /order/ | - | customer_id, order_number, list of part_ids (mapped to quantity) | <ul><li>- [x] </li></ul>  |
 |PUT| Update order | /order/id | - | customer_id, order_number, list of part_ids (mapped to quantity) | <ul><li>- [ ] </li></ul>  |
