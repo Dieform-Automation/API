@@ -64,6 +64,9 @@ def get_all_orders():
 def get_an_order(id):
     return Order.query.filter_by(id=id).first()
 
+def get_all_orders_by_customerID(id):
+    return Order.query.filter_by(customer_id=id).all()
+
 def save_changes(data):
     db.session.add(data)
     db.session.commit()

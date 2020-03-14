@@ -1,13 +1,14 @@
 from flask import request
 from flask_restplus import Resource
 
-from ..util.dto import PartDto
+from ..util.dto import PartDto, UpdatePartDto
 from ..util.decorator import crossdomain, token_required # will be used later
-from ..service.part_service import get_all_parts, get_a_part, save_new_part, update_part, get_all_parts_by_customerID
+from ..service.part_service import get_all_parts, get_a_part, save_new_part, update_part, get_all_parts_by_customerID, get_all_parts_by_orderID
 
 
 api = PartDto.api
 _part = PartDto.part
+_update_part = UpdatePartDto.part
 
 @api.route('/')
 class PartList(Resource):
@@ -17,8 +18,12 @@ class PartList(Resource):
     def get(self):
         """List all parts"""
         customer_id = request.args.get('customer_id', None)
-        if customer_id:
-            return get_all_parts_by_customerID(int(customer_id));
+        order_id = request.args.get('order_id', None)
+        
+        if order_id:
+            return get_all_parts_by_orderID(int(order_id))
+        elif customer_id:
+            return get_all_parts_by_customerID(int(customer_id))
         else:
             return get_all_parts()
 
@@ -30,15 +35,6 @@ class PartList(Resource):
         """Creates a new part """
         data = request.json
         return save_new_part(data=data)
-    
-    @api.response(204, 'Successfully updated part.')
-    @api.doc('update a part')
-    @crossdomain(origin='*')
-    @api.expect(_part, validate=True)
-    def put(self):
-        """Updates a part """
-        data = request.json
-        return update_part(data=data)
 
 
 @api.route('/<id>')
@@ -55,3 +51,12 @@ class Part(Resource):
             api.abort(404)
         else:
             return part
+
+    @api.response(204, 'Successfully updated part.')
+    @api.doc('update a part')
+    @crossdomain(origin='*')
+    @api.expect(_update_part, validate=True)
+    def put(self, id):
+        """Updates a part """
+        data = request.json
+        return update_part(id, data=data)
