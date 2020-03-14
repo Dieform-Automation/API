@@ -16,6 +16,7 @@ https://shielded-lake-43806.herokuapp.com/
 
 - GET all parts
 - GET all parts by customer_id
+- GET all parts by order_id
 - GET part by id
 - POST add new part(number, name, customer_id)
 - POST update new part(name)
@@ -24,6 +25,5 @@ https://shielded-lake-43806.herokuapp.com/
 
 - GET all orders (return parts by order_id)
 - GET all orders by customer_id
-- GET all parts by order_id
 - POST add new order(customer_id, order_number, list of part_ids (mapped to quantity))
 - POST add new part to order(order_id, part_id, quantity)
