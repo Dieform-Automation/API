@@ -24,8 +24,8 @@ https://shielded-lake-43806.herokuapp.com/
 ## Order
 | Method | Action | Endpoint  | Arguments | Body | Complete |
 |---|---|---|---|---|:---:|
-|GET | Get all orders | /order/ | - | - | <ul><li>- [ ] </li></ul> |
-|GET | Get order by id |  /order/id | - | - | <ul><li>- [ ] </li></ul>  |
+|GET | Get all orders | /order/ | - | - | <ul><li>- [x] </li></ul> |
+|GET | Get order by id |  /order/id | - | - | <ul><li>- [x] </li></ul>  |
 |GET | Get all orders by customer_id |  /order? | customer_id | - | <ul><li>- [x] </li></ul>  |
 |POST| Add order | /order/ | - | customer_id, order_number, list of part_ids (mapped to quantity) | <ul><li>- [x] </li></ul>  |
-|PUT| Update order | /order/id | - | list of part_ids (mapped to quantity) | <ul><li>- [ ] </li></ul>  |
+|PUT| Update order | /order/id | - | list of part_ids (mapped to quantity) | <ul><li>- [x] </li></ul>  |

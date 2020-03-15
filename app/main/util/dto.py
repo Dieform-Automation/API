@@ -11,38 +11,40 @@ class UserDto:
 
 class PartDto:
     api = Namespace('part', description='part related operations')
-    part_incoming = api.model('part', {
+    part_incoming = api.model('part_incoming', {
         'id': fields.Integer(required=False, description='id'),
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
-    part_outgoing = api.model('part', {
+    part_outgoing = api.model('part_outgoing', {
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
-    part_update = api.model('part', {
+    part_update = api.model('part_update', {
         'name': fields.String(required=True, description='update name of part'),
     })
 
-class OutgoingOrderDto:
+class OrderDto:
     api = Namespace('order', description='order related operations')
-    order = api.model('order', {
-        'id': fields.Integer(required=False, description='id'),
+    new_order = api.model('new_order', {
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
         'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
     })
 
-class IncomingOrderDto:
-    api = Namespace('order', description='order related operations')
+    order_update = api.model('order_update', {
+        'part_map': fields.Raw(required=True, description='part ids mapped to their quantity')
+    })
+
     order = api.model('order', {
         'id': fields.Integer(required=False, description='id'),
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
+        'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
     })
 
 class CustomerDto:
