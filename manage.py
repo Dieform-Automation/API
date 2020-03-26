@@ -6,7 +6,7 @@ from flask_script import Manager
 
 from app import blueprint
 from app.main import create_app, db
-from app.main.model import user, blacklist, customer, part, order, part_order, receiving
+from app.main.model import customer, part, order, part_order, receiving
 
 app = create_app(os.getenv('ENVIRON') or 'dev')
 app.register_blueprint(blueprint)
