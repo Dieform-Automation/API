@@ -92,7 +92,7 @@ def update_order(id, data):
     parts = get_all_parts_by_orderID(id)
     new_parts = data['part_map']
 
-    if not new_parts:
+    if not new_parts or not parts:
         response_object = {
             'status': 'Not Found',
             'message': 'No parts found.',

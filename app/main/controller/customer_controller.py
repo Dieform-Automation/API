@@ -3,14 +3,14 @@ from flask_restplus import Resource
 
 from ..util.dto import CustomerDto
 from ..util.decorator import crossdomain, token_required # will be used later
-from ..service.customer_service import get_all_customers, get_a_customer, save_new_customer
+from ..service.customer_service import get_all_customers, get_a_customer, save_new_customer, update_customer
 
 from flask_cors import cross_origin
 
 api = CustomerDto.api
 _get_customer = CustomerDto.customer_get
 _post_customer = CustomerDto.customer_post
-_get_customer = CustomerDto.customer_put
+_put_customer = CustomerDto.customer_put
 
 @api.route('/')
 class CustomerList(Resource):
@@ -45,3 +45,12 @@ class Customer(Resource):
             api.abort(404)
         else:
             return customer
+
+    @api.response(204, 'Successfully updated customer.')
+    @api.doc('update a customer')
+    @crossdomain(origin='*')
+    @api.expect(_put_customer, validate=True)
+    def put(self, id):
+        """Updates a part """
+        data = request.json
+        return update_customer(id, data=data)

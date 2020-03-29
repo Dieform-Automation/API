@@ -75,14 +75,14 @@ class CustomerDto:
     })
 
     customer_put = api.model('customer_put', {
-        'name': fields.String(required=True, description='name of the customer'),
-        'email': fields.String(required=True, description='customer email'),
-        'phone': fields.String(required=True, description='customer phone number'),
-        'street': fields.String(required=True, description='customer\'s street (office address)'),
-        'city': fields.String(required=True, description='customer\'s city (office address)'),
-        'country': fields.String(required=True, description='customer\'s country (office address)'),
-        'province': fields.String(required=True, description='customer\'s province (office address)'),
-        'postal_code': fields.String(required=True, description='customer\'s postal code (office address)'),
+        'name': fields.String(required=False, description='name of the customer'),
+        'email': fields.String(required=False, description='customer email'),
+        'phone': fields.String(required=False, description='customer phone number'),
+        'street': fields.String(required=False, description='customer\'s street (office address)'),
+        'city': fields.String(required=False, description='customer\'s city (office address)'),
+        'country': fields.String(required=False, description='customer\'s country (office address)'),
+        'province': fields.String(required=False, description='customer\'s province (office address)'),
+        'postal_code': fields.String(required=False, description='customer\'s postal code (office address)'),
         'point_of_contact': fields.String(required=False, description='name of the point of contact for the customer')
     })
 
