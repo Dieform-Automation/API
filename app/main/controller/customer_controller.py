@@ -8,13 +8,15 @@ from ..service.customer_service import get_all_customers, get_a_customer, save_n
 from flask_cors import cross_origin
 
 api = CustomerDto.api
-_customer = CustomerDto.customer
+_get_customer = CustomerDto.customer_get
+_post_customer = CustomerDto.customer_post
+_get_customer = CustomerDto.customer_put
 
 @api.route('/')
 class CustomerList(Resource):
     @api.doc('list_of_customers')
     @crossdomain(origin='*')
-    @api.marshal_list_with(_customer, envelope='data')
+    @api.marshal_list_with(_get_customer, envelope='data')
     def get(self):
         """List all customers"""
         return get_all_customers()
@@ -22,7 +24,7 @@ class CustomerList(Resource):
     @api.response(201, 'Customer successfully added.')
     @api.doc('add a new customer')
     @crossdomain(origin='*')
-    @api.expect(_customer, validate=True)
+    @api.expect(_post_customer, validate=True)
     def post(self):
         """Creates a new customer """
         data = request.json
@@ -35,7 +37,7 @@ class CustomerList(Resource):
 class Customer(Resource):
     @api.doc('get a customer')
     @crossdomain(origin='*')
-    @api.marshal_with(_customer)
+    @api.marshal_with(_get_customer)
     def get(self, id):
         """get a customer given its id"""
         customer = get_a_customer(id)
