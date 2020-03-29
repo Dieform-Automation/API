@@ -10,7 +10,7 @@ https://shielded-lake-43806.herokuapp.com/
 |GET | Get all customers | /customer/ | - | - | <ul><li>- [x] </li></ul> |
 |GET | Get customer by id |  /customer/id | - | - | <ul><li>- [x] </li></ul>  |
 |POST| Add customer | /customer/ | -  | name, point_of_contact, email, street, city, province, country, postal code, phone | <ul><li>- [x] </li></ul>  |
-|PUT| Update customer | /customer/id | - | name, point_of_contact, email, street, city, province, country, postal code, phone | <ul><li>- [ ] </li></ul>  |
+|PUT| Update customer | /customer/id | - | name, point_of_contact, email, street, city, province, country, postal code, phone | <ul><li>- [x] </li></ul>  |
 
 ## Part
 | Method | Action | Endpoint  | Arguments | Body | Complete |
