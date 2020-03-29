@@ -6,11 +6,12 @@ from ..util.decorator import crossdomain, token_required # will be used later
 from ..service.order_service import get_all_orders, save_new_order, get_an_order, get_all_orders_by_customerID, update_order
 
 api = OrderDto.api
-_new_order = OrderDto.new_order
-_update_order = OrderDto.order_update
+_post_order = OrderDto.order_post
+_put_order = OrderDto.order_put
 
 @api.route('/')
 class OrderList(Resource):
+    # special case, no DTO is used because part:quantity map is
     @api.doc('list_of_orders')
     @crossdomain(origin='*')
     def get(self):
@@ -24,7 +25,7 @@ class OrderList(Resource):
     @api.response(201, 'Order successfully added.')
     @api.doc('add a new order')
     @crossdomain(origin='*')
-    @api.expect(_new_order, validate=True)
+    @api.expect(_post_order, validate=True)
     def post(self):
         """Creates a new order """
         data = request.json
@@ -47,7 +48,7 @@ class Order(Resource):
     @api.response(204, 'Successfully updated order.')
     @api.doc('update order')
     @crossdomain(origin='*')
-    @api.expect(_update_order, validate=True)
+    @api.expect(_put_order, validate=True)
     def put(self, id):
         """Updates an order """
         data = request.json
