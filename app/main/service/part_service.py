@@ -40,7 +40,7 @@ def update_part(part_id, data):
     else:
         response_object = {
             'status': 'Not Found',
-            'message': 'Part does not exist exists.',
+            'message': 'Part does not exist.',
         }
         return response_object, 404
     

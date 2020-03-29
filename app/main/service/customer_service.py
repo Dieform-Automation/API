@@ -31,6 +31,27 @@ def save_new_customer(data):
         }
         return response_object, 409
 
+def update_customer(customer_id, data):
+    customer = Customer.query.filter_by(id=customer_id).first()
+    if customer:
+        for k in data.keys():
+            setattr(customer, k, data[k])
+
+        db.session.commit()
+        response_object = {
+            'status': 'success',
+            'message': 'Successfully updated part.',
+            'data': data
+        }
+        return response_object, 204
+    else:
+        response_object = {
+            'status': 'Not Found',
+            'message': 'Customer does not exist.',
+        }
+        return response_object, 404
+
+
 def get_all_customers():
     return Customer.query.all()
 
