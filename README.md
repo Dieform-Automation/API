@@ -1,6 +1,7 @@
 # API Guide
 ![Deploy](https://github.com/Dieform-Automation/API/workflows/Deploy/badge.svg)
 
+
 # Live API Link + Swagger UI
 https://shielded-lake-43806.herokuapp.com/
 
@@ -33,8 +34,8 @@ https://shielded-lake-43806.herokuapp.com/
 ## Recieving
 | Method | Action | Endpoint  | Arguments | Body | Complete |
 |---|---|---|---|---|:---:|
-|GET | Get all receivables | /recieving/ | - | - | <ul><li>- [ ] </li></ul> |
-|GET | Get receivable by id |  /recieving/id | - | - | <ul><li>- [ ] </li></ul>  |
-|GET | Get all receivables by customer_id |  /recieving? | customer_id | - | <ul><li>- [ ] </li></ul>  |
-|POST| Add receivable | /recieving/ | - | customer_id, part_id, customer_packing_slip, part_quantity, date* | <ul><li>- [ ] </li></ul>  |
-|PUT| Update receivable | /recieving/id | - | customer_id, part_id, customer_packing_slip, part_quantity, date | <ul><li>- [ ] </li></ul>  |
+|GET | Get all receivables | /recieving/ | - | - | <ul><li>- [x] </li></ul> |
+|GET | Get receivable by id |  /recieving/id | - | - | <ul><li>- [x] </li></ul>  |
+|GET | Get all receivables by customer_id |  /recieving? | customer_id | - | <ul><li>- [x] </li></ul>  |
+|POST| Add receivable | /recieving/ | - | customer_id, part_id, customer_packing_slip, part_quantity, date* | <ul><li>- [x] </li></ul>  |
+|PUT| Update receivable | /recieving/id | - | customer_id, part_id, customer_packing_slip, part_quantity, date | <ul><li>- [x] </li></ul>  |
