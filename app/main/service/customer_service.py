@@ -31,8 +31,8 @@ def save_new_customer(data):
         }
         return response_object, 409
 
-def update_customer(customer_id, data):
-    customer = Customer.query.filter_by(id=customer_id).first()
+def update_customer(id, data):
+    customer = Customer.query.filter_by(id=id).first()
     if customer:
         for k in data.keys():
             setattr(customer, k, data[k])

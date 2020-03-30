@@ -26,8 +26,8 @@ def save_new_part(data):
         }
         return response_object, 409
 
-def update_part(part_id, data):
-    part = Part.query.filter_by(id=part_id).first()
+def update_part(id, data):
+    part = Part.query.filter_by(id=id).first()
     if part:
         part.name=data['name']
         db.session.commit()
