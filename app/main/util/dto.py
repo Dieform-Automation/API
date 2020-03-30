@@ -12,7 +12,7 @@ class UserDto:
 class PartDto:
     api = Namespace('part', description='part related operations')
     part_get = api.model('part_get', {
-        'id': fields.Integer(required=False, description='id'),
+        'id': fields.Integer(required=True, description='id'),
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
@@ -31,7 +31,7 @@ class PartDto:
 class OrderDto:
     api = Namespace('order', description='order related operations')
     order_get = api.model('order_get', {
-        'id': fields.Integer(required=False, description='id'),
+        'id': fields.Integer(required=True, description='id'),
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
         'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
@@ -50,7 +50,7 @@ class OrderDto:
 class CustomerDto:
     api = Namespace('customer', description='customer related operations')
     customer_get = api.model('customer_get', {
-        'id': fields.Integer(required=False, description='id'),
+        'id': fields.Integer(required=True, description='id'),
         'name': fields.String(required=True, description='name of the customer'),
         'email': fields.String(required=True, description='customer email'),
         'phone': fields.String(required=True, description='customer phone number'),
@@ -59,7 +59,7 @@ class CustomerDto:
         'country': fields.String(required=True, description='customer\'s country (office address)'),
         'province': fields.String(required=True, description='customer\'s province (office address)'),
         'postal_code': fields.String(required=True, description='customer\'s postal code (office address)'),
-        'point_of_contact': fields.String(required=False, description='name of the point of contact for the customer')
+        'point_of_contact': fields.String(required=True, description='name of the point of contact for the customer')
     })
 
     customer_post = api.model('customer_post', {
@@ -84,6 +84,33 @@ class CustomerDto:
         'province': fields.String(required=False, description='customer\'s province (office address)'),
         'postal_code': fields.String(required=False, description='customer\'s postal code (office address)'),
         'point_of_contact': fields.String(required=False, description='name of the point of contact for the customer')
+    })
+
+class ReceivingDto:
+    api = Namespace('receiving', description='receiving related operations')
+    receiving_get = api.model('receiving_get', {
+        'id': fields.Integer(required=True, description='id'),
+        'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
+        'part_id': fields.Integer(required=True, description='id of the part for an order'),
+        'customer_packing_slip': fields.String(required=True, description='customer packing slip'),
+        'part_quantity': fields.Integer(required=True, description='number of parts in the order'),
+        'date': fields.Date(required=True, description='receiving date'),
+    })
+
+    receiving_post = api.model('receiving_post', {
+        'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
+        'part_id': fields.Integer(required=True, description='id of the part for an order'),
+        'customer_packing_slip': fields.String(required=True, description='customer packing slip'),
+        'part_quantity': fields.Integer(required=True, description='number of parts in the order'),
+        'date': fields.Date(required=False, description='receiving date'),
+    })
+
+    receiving_put = api.model('receiving_put', {
+        'customer_id': fields.Integer(required=False, description='id of the customer for an order'),
+        'part_id': fields.Integer(required=False, description='id of the part for an order'),
+        'customer_packing_slip': fields.String(required=False, description='customer packing slip'),
+        'part_quantity': fields.Integer(required=False, description='number of parts in the order'),
+        'date': fields.Date(required=False, description='receiving date'),
     })
 
 class AuthDto:

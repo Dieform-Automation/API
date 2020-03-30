@@ -1,7 +1,13 @@
 from app.main import db
 from app.main.model.part import Part
 
+from ..util.validate import validate
+
 def save_new_part(data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+    
     part = Part.query.filter_by(number=data['number'], customer_id=int(data['customer_id'])).first()
     
     if not part:
@@ -26,8 +32,11 @@ def save_new_part(data):
         }
         return response_object, 409
 
-def update_part(part_id, data):
-    part = Part.query.filter_by(id=part_id).first()
+def update_part(id, data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+    part = Part.query.filter_by(id=id).first()
     if part:
         part.name=data['name']
         db.session.commit()
@@ -43,8 +52,7 @@ def update_part(part_id, data):
             'message': 'Part does not exist.',
         }
         return response_object, 404
-    
-
+        
 def get_all_parts():
     return Part.query.all()
 

@@ -1,7 +1,13 @@
 from app.main import db
 from app.main.model.customer import Customer
 
+from ..util.validate import validate
+
 def save_new_customer(data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+
     customer = Customer.query.filter_by(name=data['name']).first()
     if not customer:
         new_customer = Customer(
@@ -31,8 +37,12 @@ def save_new_customer(data):
         }
         return response_object, 409
 
-def update_customer(customer_id, data):
-    customer = Customer.query.filter_by(id=customer_id).first()
+def update_customer(id, data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+
+    customer = Customer.query.filter_by(id=id).first()
     if customer:
         for k in data.keys():
             setattr(customer, k, data[k])
@@ -50,7 +60,6 @@ def update_customer(customer_id, data):
             'message': 'Customer does not exist.',
         }
         return response_object, 404
-
 
 def get_all_customers():
     return Customer.query.all()

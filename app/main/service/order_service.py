@@ -1,19 +1,16 @@
 from app.main import db
 from app.main.model.order import Order
-from app.main.model.customer import Customer
 from app.main.model.part import Part
 from app.main.model.part_order import PartOrder
 
+from ..util.validate import validate
+
 def save_new_order(data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+
     order = Order.query.filter_by(number=data['number'], customer_id=int(data['customer_id'])).first()
-    customer = Customer.query.filter_by(id=data['customer_id']).first()
-    
-    if not customer:
-        response_object = {
-            'status': 'Not Found',
-            'message': 'Customer does not exists.',
-        }
-        return response_object, 404
 
     if not order:
         parts_for_order = dict(data['part_map']) or []
@@ -89,6 +86,10 @@ def get_all_orders_by_customerID(id):
     return Order.query.filter_by(customer_id=id).all()
 
 def update_order(id, data):
+    response = validate(data)
+    if response: 
+        return response # not validated
+        
     parts = get_all_parts_by_orderID(id)
     new_parts = data['part_map']
 
