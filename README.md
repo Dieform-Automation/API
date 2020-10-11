@@ -19,7 +19,7 @@ https://shielded-lake-43806.herokuapp.com/
 |GET | Get all parts | /part/ | - | - | <ul><li>- [x] </li></ul> |
 |GET | Get part by id |  /part/id | - | - | <ul><li>- [x] </li></ul>  |
 |GET | Get all parts by customer_id |  /part? | customer_id | - | <ul><li>- [x] </li></ul>  |
-|POST| Add part | /part/ | - | number, name, customer_id | <ul><li>- [x] </li></ul>  |
+|POST| Add part | /part/ | - | number, name, purchase_order_id, customer_id | <ul><li>- [x] </li></ul>  |
 |PUT| Update part | /part/id | - | name | <ul><li>- [x] </li></ul>  |
 
 ## Order

@@ -5,6 +5,7 @@ from ..util.validate import validate
 
 def save_new_part(data):
     response = validate(data)
+    
     if response: 
         return response # not validated
     
@@ -13,6 +14,7 @@ def save_new_part(data):
     if not part:
         part = Part(
             customer_id=int(data['customer_id']),
+            purchase_order_id=data['purchase_order_id'],
             number=data['number'],
             name=data['name']
         )

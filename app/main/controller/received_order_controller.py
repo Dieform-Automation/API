@@ -3,7 +3,7 @@ from flask_restplus import Resource
 
 from ..util.dto import ReceivingDto
 from ..util.decorator import crossdomain, token_required # will be used later
-from ..service.receiving_service import get_all_receiving, get_all_receiving_by_customerID, save_new_receiving_order, get_a_receiving_order, update_receiving_order
+from ..service.received_order_service import get_all_received_orders, get_all_received_order_by_customerID, save_new_received_order, get_a_receiving_order, update_receiving_order
 
 api = ReceivingDto.api
 _post_receiving = ReceivingDto.receiving_post
@@ -11,17 +11,17 @@ _get_receiving = ReceivingDto.receiving_get
 _put_receiving = ReceivingDto.receiving_put
 
 @api.route('/')
-class ReceivingList(Resource):
-    @api.doc('list_of_receiving')
+class ReceivedOrderList(Resource):
+    @api.doc('list_of_receivedOrder')
     @crossdomain(origin='*')
-    @api.marshal_list_with(_get_receiving, envelope='data')
+    @api.marshal_list_with(_get_received, envelope='data')
     def get(self):
-        """List all receiving"""
+        """List all received orders"""
         customer_id = request.args.get('customer_id', None)
         if customer_id:
-            return get_all_receiving_by_customerID(int(customer_id))
+            return get_all_received_order_by_customerID(int(customer_id))
         else:
-            return get_all_receiving()
+            return get_all_received_orders()
 
     @api.response(201, 'Receivable order successfully added.')
     @api.doc('add a new receivable order')
@@ -30,7 +30,7 @@ class ReceivingList(Resource):
     def post(self):
         """Creates a new receiving order """
         data = request.json
-        return save_new_receiving_order(data=data)
+        return save_new_received_order(data=data)
 
 @api.route('/<id>')
 @api.param('id', 'The receiving order id')

@@ -1,7 +1,7 @@
-from app.main.model.receiving import Receiving
+from app.main.model.received_part import RecievingPart
 from app.main.model.customer import Customer
 from app.main.model.part import Part
-from app.main.model.order import Order
+from app.main.model.purchase_order import PurchaseOrder
 
 def validate(data):
     for k in data:
@@ -12,7 +12,7 @@ def validate(data):
             }
             return response_object
         
-        if k == 'order_id' and not validate_id(Order, data['order_id']):
+        if k == 'order_id' and not validate_id(PurchaseOrder, data['purchase_order_id']):
             response_object = {
                 'status': 'Fail',
                 'message': 'Order does not exist.',

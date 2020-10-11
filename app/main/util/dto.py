@@ -14,12 +14,14 @@ class PartDto:
     part_get = api.model('part_get', {
         'id': fields.Integer(required=True, description='id'),
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'purchase_order_id': fields.Integer(required=True, description='id of the purchase order'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
     part_post = api.model('part_post', {
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'purchase_order_id': fields.Integer(required=True, description='id of purchase order'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
