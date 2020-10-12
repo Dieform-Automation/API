@@ -38,3 +38,8 @@ https://shielded-lake-43806.herokuapp.com/
 |GET | Get all receiving orders by customer_id |  /receiving_order? | customer_id | - | <ul><li>- [x] </li></ul>  |
 |POST| Add receiving order | /receiving_order/ | - | customer_id, customer_packing_slip, date* [format: "month/day/year hour:minute:second"] | <ul><li>- [x] </li></ul>  |
 |PUT| Update receiving order | /receiving_order/id | - | customer_packing_slip | <ul><li>- [x] </li></ul>  |
+
+## Received Part
+| Method | Action | Endpoint  | Arguments | Body | Complete |
+|---|---|---|---|---|:---:|
+|POST| Add received part | /received_part/ | - | part_id, receiving_order_id, part_quantity_bins | <ul><li>- [x] </li></ul>  |
