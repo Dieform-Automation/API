@@ -45,11 +45,11 @@ class ReceivingOrder(Resource):
         else:
             return receivable
 
-@api.response(204, 'Successfully updated receiving order.')
-@api.doc('update a receiving order')
-@crossdomain(origin='*')
-@api.expect(_put_receiving_order, validate=True)
-def put(self, id):
-    """Updates a receiving order """
-    data = request.json
-    return update_receiving_order(id, data=data)
+    @api.response(204, 'Successfully updated receiving order.')
+    @api.doc('update a receiving order')
+    @crossdomain(origin='*')
+    @api.expect(_put_receiving_order, validate=True)
+    def put(self, id):
+        """Updates a receiving order """
+        data = request.json
+        return update_receiving_order(id, data=data)
