@@ -13,7 +13,10 @@ class Part(db.Model):
     number = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(255), nullable=False)
 
-    receivables = relationship("ReceivingPart")
+    receivedParts = relationship("ReceivedPart")
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def __repr__(self):
         return "<Part number: '{}'>".format(self.number)

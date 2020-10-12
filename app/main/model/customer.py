@@ -19,7 +19,7 @@ class Customer(db.Model):
 
     parts = relationship("Part")
     purchaseOrders = relationship("PurchaseOrder")
-    receivedOrders = relationship("ReceivedOrder")
+    receivingOrders = relationship("ReceivingOrder")
 
     def __repr__(self):
         return "<Customer '{}'>".format(self.name)

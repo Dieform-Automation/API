@@ -9,7 +9,7 @@ class PurchaseOrder(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     customer_id = db.Column(db.Integer, ForeignKey('customer.id'))
-    order_number = db.Column(db.Integer, nullable=False)
+    number = db.Column(db.Integer, nullable=False)
 
     parts = relationship("Part")
 
