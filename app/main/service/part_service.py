@@ -21,12 +21,8 @@ def save_new_part(data):
         save_changes(part)
         db.session.refresh(part)
         data['id'] = part.id # get id of newly created data
-        response_object = {
-            'status': 'Success',
-            'message': 'Successfully added part.',
-            'data': data
-        }
-        return response_object, 201
+
+        return data, 201
     else:
         response_object = {
             'status': 'Fail',
@@ -42,12 +38,7 @@ def update_part(id, data):
     if part:
         part.name=data['name']
         db.session.commit()
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully updated part.',
-            'data': data
-        }
-        return response_object, 204
+        return data, 204
     else:
         response_object = {
             'status': 'Not Found',

@@ -24,12 +24,8 @@ def save_new_customer(data):
         save_changes(new_customer)
         db.session.refresh(new_customer)
         data['id'] = new_customer.id #get id of newly added data
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully added customer.',
-            'data': data
-        }
-        return response_object, 201
+        
+        return data, 201
     else:
         response_object = {
             'status': 'fail',
@@ -48,12 +44,8 @@ def update_customer(id, data):
             setattr(customer, k, data[k])
 
         db.session.commit()
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully updated part.',
-            'data': data
-        }
-        return response_object, 204
+        
+        return data, 204
     else:
         response_object = {
             'status': 'Not Found',

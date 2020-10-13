@@ -12,12 +12,24 @@ def validate(data):
             }
             return response_object
         
-        if k == 'purchase_order_id' and not validate_id(PurchaseOrder, data['purchase_order_id']):
-            response_object = {
-                'status': 'Fail',
-                'message': 'Order does not exist.',
-            }
-            return response_object
+        if k == 'purchase_order_id' and 'customer_id' in data.keys():    
+
+            if (not validate_id(PurchaseOrder, data['purchase_order_id'])):
+                response_object = {
+                    'status': 'Fail',
+                    'message': 'Purchase order does not exist.',
+                }
+                return response_object
+
+            result = PurchaseOrder.query.filter_by(customer_id=data['customer_id'])
+            
+            if (not result):
+                response_object = {
+                    'status': 'Fail',
+                    'message': 'Purchase order does not belong to customer.',
+                }
+                return response_object
+
 
         if k == 'part_id' and not validate_id(Part, data['part_id']):
             response_object = {
@@ -25,7 +37,7 @@ def validate(data):
                 'message': 'Part does not exist.',
             }
             return response_object
-            
+
     if 'customer_id' in data.keys() and 'part_id' in data.keys():
         if not validate_part_customer(data['customer_id'], data['part_id']):
             response_object = {

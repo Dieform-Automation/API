@@ -19,12 +19,7 @@ def save_new_received_part(data):
     save_changes(received_part)
     db.session.refresh(received_part)
     data['id'] = received_part.id # get id of newly created data    
-    response_object = {
-        'status': 'Success',
-        'message': 'Successfully added new received part.',
-        'data': data
-    }
-    return response_object, 201
+    return data, 201
     
 def save_changes(data):
     db.session.add(data)

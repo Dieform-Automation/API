@@ -1,3 +1,5 @@
+import json
+
 from app.main import db
 from app.main.model.purchase_order import PurchaseOrder
 
@@ -8,37 +10,41 @@ def save_new_order(data):
     if response: 
         return response # not validated
 
-    order = PurchaseOrder(
-        customer_id=int(data['customer_id']),
-        number=int(data['number']),
-    )
+    purchase_order = PurchaseOrder.query.filter_by(customer_id=data['customer_id'], number=data['number']).first()
 
-    try:
-        save_changes(order)
-        db.session.refresh(order)
-        data['id'] = order.id # get id of newly added data
-        
-        response_object = {
-            'status': 'Success',
-            'message': 'Successfully added order.',
-            'data': data
-        }
-        return response_object, 201
-    except:
-        response_object = {
-            'status': 'Fail',
-            'message': 'Failed to create order. Internal server error.',
-        }
-        return response_object, 500
+    if (not purchase_order):
+        order = PurchaseOrder(
+            customer_id=int(data['customer_id']),
+            number=int(data['number']),
+        )
+
+        try:
+            save_changes(order)
+            db.session.refresh(order)
+            data['id'] = order.id # get id of newly added data
+            return data, 201
+        except:
+            response_object = {
+                'status': 'Fail',
+                'message': 'Failed to create order. Internal server error.',
+            }
+            return response_object, 500
+    
+    response_object = {
+        'status': 'Fail',
+        'message': 'Purchase order with the same number already exists for the customer.',
+    }
+    return response_object, 409
+
 
 def get_all_orders():
     orders = PurchaseOrder.query.all()
-    response_object = {'orders': []}
+    response_object = []
 
     for order in orders:
-        response_object['orders'].append(create_purchase_order_json(order))
+        response_object.append(create_purchase_order_json(order))
 
-    return response_object, 200
+    return json.dumps(response_object), 200
 
 def get_an_order(id):    
     purchase_order = PurchaseOrder.query.filter_by(id=id).first()
@@ -54,9 +60,8 @@ def get_all_purchase_orders_by_customerID(customer_id):
 
 def get_all_parts_by_order_number(order_number):
     purchase_order = PurchaseOrder.query.filter_by(number=order_number).first()
-    response_object = {'parts': purchase_order.parts}
     
-    return response_object, 200
+    return purchase_order.parts, 200
 
 # ----helpers
 def create_purchase_order_json(purchase_order):
