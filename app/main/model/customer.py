@@ -18,8 +18,11 @@ class Customer(db.Model):
     point_of_contact = db.Column(db.String(255), nullable=True)
 
     parts = relationship("Part")
-    orders = relationship("Order")
-    receivables = relationship("Receiving")
+    purchaseOrders = relationship("PurchaseOrder")
+    receivingOrders = relationship("ReceivingOrder")
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def __repr__(self):
         return "<Customer '{}'>".format(self.name)

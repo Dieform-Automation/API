@@ -1,3 +1,6 @@
+import json
+from flask import jsonify
+
 from app.main import db
 from app.main.model.part import Part
 
@@ -5,6 +8,7 @@ from ..util.validate import validate
 
 def save_new_part(data):
     response = validate(data)
+    
     if response: 
         return response # not validated
     
@@ -13,18 +17,15 @@ def save_new_part(data):
     if not part:
         part = Part(
             customer_id=int(data['customer_id']),
+            purchase_order_id=data['purchase_order_id'],
             number=data['number'],
             name=data['name']
         )
         save_changes(part)
         db.session.refresh(part)
         data['id'] = part.id # get id of newly created data
-        response_object = {
-            'status': 'Success',
-            'message': 'Successfully added part.',
-            'data': data
-        }
-        return response_object, 201
+
+        return data, 201
     else:
         response_object = {
             'status': 'Fail',
@@ -40,24 +41,29 @@ def update_part(id, data):
     if part:
         part.name=data['name']
         db.session.commit()
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully updated part.',
-            'data': data
-        }
-        return response_object, 204
+        return data, 204
     else:
         response_object = {
             'status': 'Not Found',
             'message': 'Part does not exist.',
         }
         return response_object, 404
-        
+
+def convert_part_list_to_json(part_list):
+    response_object = []
+
+    for part in part_list:
+        response_object.append(part.as_dict())
+
+    return json.dumps(response_object, indent=4, sort_keys=True, default=str)
+
 def get_all_parts():
-    return Part.query.all()
+    all_parts = Part.query.all()
+    return convert_part_list_to_json(all_parts), 200
 
 def get_all_parts_by_customerID(id):
-    return Part.query.filter_by(customer_id=id).all()
+    all_parts = Part.query.filter_by(customer_id=id).all()
+    return convert_part_list_to_json(all_parts), 200
 
 def get_a_part(id):
     return Part.query.filter_by(id=id).first()

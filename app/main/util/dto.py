@@ -1,5 +1,11 @@
 from flask_restplus import Namespace, fields
 
+received_part = {
+    'part_id': fields.Integer,
+    'part_quantity': fields.Integer,
+    'bins': fields.Integer
+}
+
 class UserDto:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
@@ -14,12 +20,14 @@ class PartDto:
     part_get = api.model('part_get', {
         'id': fields.Integer(required=True, description='id'),
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'purchase_order_id': fields.Integer(required=True, description='id of the purchase order'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
 
     part_post = api.model('part_post', {
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
+        'purchase_order_id': fields.Integer(required=True, description='id of purchase order'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
         'name': fields.String(required=True, description='name of part'),
     })
@@ -28,23 +36,12 @@ class PartDto:
         'name': fields.String(required=True, description='update name of part'),
     })
 
-class OrderDto:
-    api = Namespace('order', description='order related operations')
-    order_get = api.model('order_get', {
-        'id': fields.Integer(required=True, description='id'),
+class PurchaseOrderDto:
+    api = Namespace('purchase_order', description='purchase order related operations')
+        
+    purchase_order_post = api.model('order_post', {
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
-        'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
-    })
-    
-    order_post = api.model('order_post', {
-        'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
-        'number': fields.Integer(required=True, description='order number (internal number used by Dieform)'),
-        'part_map': fields.Raw(required=False, description='part ids mapped to their quantity')
-    })
-
-    order_put = api.model('order_put', {
-        'part_map': fields.Raw(required=True, description='part ids mapped to their quantity')
     })
 
 class CustomerDto:
@@ -86,31 +83,33 @@ class CustomerDto:
         'point_of_contact': fields.String(required=False, description='name of the point of contact for the customer')
     })
 
-class ReceivingDto:
-    api = Namespace('receiving', description='receiving related operations')
-    receiving_get = api.model('receiving_get', {
+class ReceivingOrderDto:
+    api = Namespace('receiving_order', description='receiving order related operations')
+    receiving_order_get = api.model('receiving_order_get', {
         'id': fields.Integer(required=True, description='id'),
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
-        'part_id': fields.Integer(required=True, description='id of the part for an order'),
         'customer_packing_slip': fields.String(required=True, description='customer packing slip'),
-        'part_quantity': fields.Integer(required=True, description='number of parts in the order'),
         'date': fields.Date(required=True, description='receiving date'),
     })
 
-    receiving_post = api.model('receiving_post', {
+    receiving_order_post = api.model('receiving_order_post', {
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
-        'part_id': fields.Integer(required=True, description='id of the part for an order'),
         'customer_packing_slip': fields.String(required=True, description='customer packing slip'),
-        'part_quantity': fields.Integer(required=True, description='number of parts in the order'),
         'date': fields.Date(required=False, description='receiving date'),
+        'received_parts': fields.List(fields.Nested(api.model("received_parts", received_part)))
     })
 
-    receiving_put = api.model('receiving_put', {
-        'customer_id': fields.Integer(required=False, description='id of the customer for an order'),
-        'part_id': fields.Integer(required=False, description='id of the part for an order'),
-        'customer_packing_slip': fields.String(required=False, description='customer packing slip'),
-        'part_quantity': fields.Integer(required=False, description='number of parts in the order'),
-        'date': fields.Date(required=False, description='receiving date'),
+    receiving_order_put = api.model('receiving_order_put', {        
+        'customer_packing_slip': fields.String(required=True, description='customer packing slip'),        
+    })
+
+class ReceivedPartDto:
+    api = Namespace('received_part', description='received part related operations')
+    received_part_post = api.model('received_part_post', {
+        'part_id': fields.Integer(required=True, description='id of the part'),
+        'receiving_order_id': fields.Integer(required=True, description='id of the receiving order'),   
+        'part_quantity': fields.Integer(required=True, description='quantity of part'),   
+        'bins': fields.Integer(required=True, description='number of bins'),   
     })
 
 class AuthDto:
