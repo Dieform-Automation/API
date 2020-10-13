@@ -30,19 +30,27 @@ def validate(data):
                 }
                 return response_object
 
+        if k == 'part_id' and 'customer_id' in data.keys():
+            if (not validate_id(Part, data['part_id'])):
+                response_object = {
+                    'status': 'Fail',
+                    'message': 'Part id does not exist.',
+                }
+                return response_object
+
+            result = Part.query.filter_by(customer_id=data['customer_id']).first()
+            
+            if (not result):
+                response_object = {
+                    'status': 'Fail',
+                    'message': 'Part with id '+ str(data['part_id']) + ' does not belong to customer.',
+                }
+                return response_object
 
         if k == 'part_id' and not validate_id(Part, data['part_id']):
             response_object = {
                 'status': 'Fail',
                 'message': 'Part does not exist.',
-            }
-            return response_object
-
-    if 'customer_id' in data.keys() and 'part_id' in data.keys():
-        if not validate_part_customer(data['customer_id'], data['part_id']):
-            response_object = {
-                'status': 'Fail',
-                'message': 'This part does not belong to the customer you provided.',
             }
             return response_object
 
