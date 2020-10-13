@@ -1,3 +1,5 @@
+import json
+
 from app.main import db
 from app.main.model.customer import Customer
 
@@ -53,8 +55,17 @@ def update_customer(id, data):
         }
         return response_object, 404
 
+def convert_customer_list_to_json(customer_list):
+    response_object = []
+
+    for customer in customer_list:
+        response_object.append(customer.as_dict())
+
+    return json.dumps(response_object, indent=4, sort_keys=True, default=str)
+
 def get_all_customers():
-    return Customer.query.all()
+    all_customers = Customer.query.all()
+    return convert_customer_list_to_json(all_customers), 200
 
 def get_a_customer(id):
     return Customer.query.filter_by(id=id).first()

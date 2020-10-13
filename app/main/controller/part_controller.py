@@ -14,7 +14,6 @@ _put_part = PartDto.part_put
 class PartList(Resource):
     @api.doc('list_of_parts')
     @crossdomain(origin='*')
-    @api.marshal_list_with(_get_part, envelope='data')
     def get(self):
         """List all parts"""
         customer_id = request.args.get('customer_id', None)

@@ -15,5 +15,8 @@ class ReceivingOrder(db.Model):
 
     receivedParts = relationship("ReceivedPart")
 
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return "<Part number: '{}'>".format(self.number)

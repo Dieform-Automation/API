@@ -16,7 +16,6 @@ _put_customer = CustomerDto.customer_put
 class CustomerList(Resource):
     @api.doc('list_of_customers')
     @crossdomain(origin='*')
-    @api.marshal_list_with(_get_customer, envelope='data')
     def get(self):
         """List all customers"""
         return get_all_customers()

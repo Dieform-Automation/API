@@ -1,5 +1,11 @@
 from flask_restplus import Namespace, fields
 
+received_part = {
+    'part_id': fields.Integer,
+    'part_quantity': fields.Integer,
+    'bins': fields.Integer
+}
+
 class UserDto:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
@@ -90,6 +96,7 @@ class ReceivingOrderDto:
         'customer_id': fields.Integer(required=True, description='id of the customer for an order'),
         'customer_packing_slip': fields.String(required=True, description='customer packing slip'),
         'date': fields.Date(required=False, description='receiving date'),
+        'received_parts': fields.List(fields.Nested(api.model("received_parts", received_part)))
     })
 
     receiving_order_put = api.model('receiving_order_put', {        

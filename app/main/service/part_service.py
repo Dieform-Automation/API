@@ -1,3 +1,6 @@
+import json
+from flask import jsonify
+
 from app.main import db
 from app.main.model.part import Part
 
@@ -45,12 +48,22 @@ def update_part(id, data):
             'message': 'Part does not exist.',
         }
         return response_object, 404
-        
+
+def convert_part_list_to_json(part_list):
+    response_object = []
+
+    for part in part_list:
+        response_object.append(part.as_dict())
+
+    return json.dumps(response_object, indent=4, sort_keys=True, default=str)
+
 def get_all_parts():
-    return Part.query.all()
+    all_parts = Part.query.all()
+    return convert_part_list_to_json(all_parts), 200
 
 def get_all_parts_by_customerID(id):
-    return Part.query.filter_by(customer_id=id).all()
+    all_parts = Part.query.filter_by(customer_id=id).all()
+    return convert_part_list_to_json(all_parts), 200
 
 def get_a_part(id):
     return Part.query.filter_by(id=id).first()
