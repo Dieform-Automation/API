@@ -4,11 +4,6 @@ from app.main.model.received_part import ReceivedPart
 from ..util.validate import validate
 
 def save_new_received_part(data):
-    response = validate(data)
-    
-    if response: 
-        return response # not validated
-
     received_part = ReceivedPart(
         part_id=int(data['part_id']),
         receiving_order_id=data['receiving_order_id'],
