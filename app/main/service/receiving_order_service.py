@@ -1,5 +1,5 @@
 import datetime
-import json
+from flask import jsonify
 
 from app.main import db
 from app.main.model.receiving_order import ReceivingOrder
@@ -118,7 +118,7 @@ def receiving_orders_as_list(receiving_orders):
     for order in receiving_orders:
         response_object.append(create_receiving_order_json(order))
 
-    return json.dumps(response_object, indent=4, sort_keys=True, default=str), 200
+    return jsonify(response_object), 200
 
 def get_a_receiving_order(id):
     receiving_order = ReceivingOrder.query.filter_by(id=id).first()
