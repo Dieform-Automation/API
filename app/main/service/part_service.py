@@ -1,4 +1,3 @@
-import json
 from flask import jsonify
 
 from app.main import db
@@ -55,7 +54,7 @@ def convert_part_list_to_json(part_list):
     for part in part_list:
         response_object.append(part.as_dict())
 
-    return json.dumps(response_object, indent=4, sort_keys=True, default=str)
+    return jsonify(response_object)
 
 def get_all_parts():
     all_parts = Part.query.all()

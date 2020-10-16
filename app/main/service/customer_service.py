@@ -1,5 +1,4 @@
-import json
-
+from flask import jsonify 
 from app.main import db
 from app.main.model.customer import Customer
 
@@ -61,11 +60,11 @@ def convert_customer_list_to_json(customer_list):
     for customer in customer_list:
         response_object.append(customer.as_dict())
 
-    return json.dumps(response_object, indent=4, sort_keys=True, default=str)
+    return response_object
 
 def get_all_customers():
     all_customers = Customer.query.all()
-    return convert_customer_list_to_json(all_customers), 200
+    return jsonify(convert_customer_list_to_json(all_customers)), 200
 
 def get_a_customer(id):
     return Customer.query.filter_by(id=id).first()

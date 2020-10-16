@@ -1,4 +1,4 @@
-import json
+from flask import jsonify
 
 from app.main import db
 from app.main.model.purchase_order import PurchaseOrder
@@ -44,7 +44,7 @@ def get_all_orders():
     for order in orders:
         response_object.append(create_purchase_order_json(order))
 
-    return json.dumps(response_object, indent=4, sort_keys=True, default=str), 200
+    return jsonify(response_object), 200
 
 def get_an_order(id):    
     purchase_order = PurchaseOrder.query.filter_by(id=id).first()
@@ -60,7 +60,7 @@ def get_all_purchase_orders_by_customerID(customer_id):
 
 def get_all_parts_by_order_number(order_number):
     purchase_order = PurchaseOrder.query.filter_by(number=order_number).first()
-    return purchase_order.parts, 200
+    return jsonify(purchase_order.parts), 200
 
 # ----helpers
 def create_purchase_order_json(purchase_order):
