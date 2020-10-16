@@ -1,5 +1,6 @@
 from flask import request
 from flask_restplus import Resource
+from flask import jsonify
 
 from ..util.dto import CustomerDto
 from ..util.decorator import crossdomain, token_required # will be used later
@@ -18,7 +19,7 @@ class CustomerList(Resource):
     @crossdomain(origin='*')
     def get(self):
         """List all customers"""
-        return get_all_customers()
+        return jsonify(get_all_customers())
 
     @api.response(201, 'Customer successfully added.')
     @api.doc('add a new customer')
