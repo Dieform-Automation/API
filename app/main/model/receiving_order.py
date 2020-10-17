@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 from .. import db
 
 from sqlalchemy import ForeignKey
@@ -11,7 +11,7 @@ class ReceivingOrder(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     customer_id = db.Column(db.Integer, ForeignKey('customer.id'))
     customer_packing_slip = db.Column(db.String(255), nullable=False)
-    date = db.Column(db.Date, default=datetime.datetime.utcnow)
+    date = db.Column(db.Date, default=date.today)
 
     receivedParts = relationship("ReceivedPart")
 
