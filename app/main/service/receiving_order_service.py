@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 from flask import jsonify
 
 from app.main import db
@@ -23,7 +23,7 @@ def save_new_receiving_order(data):
 
         if 'date' in data.keys(): # since date is optional
             try:
-                receivable.date = datetime.datetime.strptime(data['date'], '%m/%d/%y %H:%M:%S')
+                receivable.date = date.fromisoformat(data['date'])
             except:
                 response_object = {
                     'status': 'Fail',
