@@ -1,4 +1,5 @@
 from flask_testing import TestCase
+from .db_setup import setup_default
 from app.main import db
 from manage import app
 
@@ -12,6 +13,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         db.create_all()
         db.session.commit()
+        setup_default(db)
 
     def tearDown(self):
         db.session.remove()

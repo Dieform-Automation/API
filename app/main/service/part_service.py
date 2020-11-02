@@ -40,7 +40,7 @@ def update_part(id, data):
     if part:
         part.name=data['name']
         db.session.commit()
-        return data, 204
+        return part.as_dict(), 204
     else:
         response_object = {
             'status': 'Not Found',
