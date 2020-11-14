@@ -6,6 +6,12 @@ received_part = {
     'bins': fields.Integer
 }
 
+shipped_part = {
+    'part_id': fields.Integer,
+    'bins': fields.Integer,
+    'quantity': fields.Integer
+}
+
 class UserDto:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
@@ -110,6 +116,14 @@ class ReceivedPartDto:
         'receiving_order_id': fields.Integer(required=True, description='id of the receiving order'),   
         'part_quantity': fields.Integer(required=True, description='quantity of part'),   
         'bins': fields.Integer(required=True, description='number of bins'),   
+    })
+
+class ShipmentDto:
+    api = Namespace('shipment', description='shipment related operations')
+    shipment_post = api.model('shipment_post', {
+        'date': fields.Date(required=False, description='shipment date'),
+        'shipping_method': fields.String(required=True, description='the shipping method'),
+        'shipped_parts': fields.List(fields.Nested(api.model("shipped_part", shipped_part)))
     })
 
 class AuthDto:

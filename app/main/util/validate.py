@@ -2,6 +2,7 @@ from app.main.model.received_part import ReceivedPart
 from app.main.model.customer import Customer
 from app.main.model.part import Part
 from app.main.model.purchase_order import PurchaseOrder
+from app.main.model.shipment import Shipment
 
 def validate(data):
     for k in data:
@@ -51,6 +52,13 @@ def validate(data):
             response_object = {
                 'status': 'Fail',
                 'message': 'Part does not exist.',
+            }
+            return response_object
+
+        if k == 'shipment_id' and not validate_id(Shipment, data['shipment_id']):
+            response_object = {
+                'status': 'Fail',
+                'message': 'Shipment does not exist.',
             }
             return response_object
 
