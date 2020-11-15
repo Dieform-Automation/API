@@ -74,7 +74,7 @@ def update_receiving_order(id, data):
     receivable = ReceivingOrder.query.filter_by(id=id).first()
     if receivable and 'customer_packing_slip' in data.keys():
         receivable.customer_packing_slip = data['customer_packing_slip']
-
+        db.session.commit()
         return receivable, 204
     else:
         response_object = {

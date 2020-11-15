@@ -14,9 +14,9 @@ class TestDevelopmentConfig(TestCase):
         return app
 
     def test_app_is_development(self):
-        self.assertFalse(app.config['SECRET_KEY'] is 'not_my_secret_key')
-        self.assertTrue(app.config['DEBUG'] is True)
-        self.assertFalse(current_app is None)
+        self.assertFalse(app.config['SECRET_KEY'] == 'not_my_secret_key')
+        self.assertTrue(app.config['DEBUG'] == True)
+        self.assertFalse(current_app == None)
 
 
 class TestTestingConfig(TestCase):
@@ -25,7 +25,7 @@ class TestTestingConfig(TestCase):
         return app
 
     def test_app_is_testing(self):
-        self.assertFalse(app.config['SECRET_KEY'] is 'not_my_secret_key')
+        self.assertFalse(app.config['SECRET_KEY'] == 'not_my_secret_key')
         self.assertTrue(app.config['DEBUG'])
 
 
@@ -35,7 +35,7 @@ class TestProductionConfig(TestCase):
         return app
 
     def test_app_is_production(self):
-        self.assertTrue(app.config['DEBUG'] is False)
+        self.assertTrue(app.config['DEBUG'] == False)
 
 
 if __name__ == '__main__':
