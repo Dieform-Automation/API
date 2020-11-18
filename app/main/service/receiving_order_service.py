@@ -4,6 +4,7 @@ from flask import jsonify
 from app.main import db
 from app.main.model.receiving_order import ReceivingOrder
 from app.main.service.received_part_service import save_new_received_part
+from app.main.service.part_service import get_a_part
 
 from ..util.validate import validate
 
@@ -97,11 +98,16 @@ def create_receiving_order_json(receiving_order):
         'received_parts': get_all_parts_from_receiving_order(receiving_order.receivedParts)
     }
 
-def get_all_parts_from_receiving_order(receivedParts):
+def get_all_parts_from_receiving_order(received_parts):
     all_parts = []
-    for part in receivedParts:
-        all_parts.append(part.as_dict())
-    
+    for received_part in received_parts:
+        received_part_dict = received_part.as_dict()
+        
+        part = get_a_part(received_part_dict['part_id'])
+        received_part_dict['part_number'] = part.number
+
+        all_parts.append(received_part_dict)
+
     return all_parts
 
 def get_all_receiving_orders_by_customerID(id):
