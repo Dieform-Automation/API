@@ -3,6 +3,7 @@ from flask import jsonify
 from app.main import db
 from app.main.model.part import Part
 from app.main.model.customer import Customer
+from app.main.model.purchase_order import PurchaseOrder
 
 from ..util.validate import validate
 
@@ -64,7 +65,9 @@ def add_customer_name_and_return(part):
 
     part_dict = part.as_dict()
     customer = Customer.query.filter_by(id=part_dict['customer_id']).first()
+    purchase_order = PurchaseOrder.query.filter_by(id=part_dict['purchase_order_id']).first()
     part_dict['customer'] = customer.name
+    part_dict['purchase_order'] = purchase_order.number
 
     return part_dict
 
