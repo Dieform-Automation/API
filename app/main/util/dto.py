@@ -28,6 +28,7 @@ class PartDto:
         'customer_id': fields.Integer(required=True, description='id of customer that ordered part'),
         'purchase_order_id': fields.Integer(required=True, description='id of the purchase order'),
         'number': fields.String(required=True, description='part number (internal number used by Dieform)'),
+        'customer': fields.String(required=True, description='customer name for who the part belongs to'),
         'name': fields.String(required=True, description='name of part'),
     })
 

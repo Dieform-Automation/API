@@ -4,6 +4,7 @@ from app.main import db
 from app.main.model.shipment import Shipment
 from app.main.model.shipped_part import ShippedPart
 from app.main.service.shipped_part_service import save_new_shipped_part
+from app.main.service.part_service import get_a_part
 
 from ..util.validate import validate
 
@@ -82,13 +83,6 @@ def update_shipment(id, data):
     return shipment, 204
 
 def shipment_as_list(shipments):
-    if (not shipments):
-        response_object = {
-            'status': 'Not Found',
-            'message': 'No shipment could be found.',
-        }
-        return response_object, 404
-
     response_object = []
 
     for shipment in shipments:
@@ -109,10 +103,16 @@ def create_shipment_json(shipment):
         'shipped_parts': get_all_shipped_parts_from_shipment(shipment.shippedParts)
     }
 
-def get_all_shipped_parts_from_shipment(parts):
+def get_all_shipped_parts_from_shipment(shipped_parts):
     all_parts = []
-    for part in parts:
-        all_parts.append(part.as_dict())
+    for shipped_part in shipped_parts:
+        shipped_part_dict = shipped_part.as_dict()
+        
+        part = get_a_part(shipped_part_dict['part_id'])
+        shipped_part_dict['part_number'] = part['number']
+        shipped_part_dict['purchase_order'] = part['purchase_order']
+
+        all_parts.append(shipped_part_dict)
     
     return all_parts
 

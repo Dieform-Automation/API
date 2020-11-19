@@ -2,6 +2,8 @@ from flask import jsonify
 
 from app.main import db
 from app.main.model.part import Part
+from app.main.model.customer import Customer
+from app.main.model.purchase_order import PurchaseOrder
 
 from ..util.validate import validate
 
@@ -52,9 +54,22 @@ def convert_part_list_to_json(part_list):
     response_object = []
 
     for part in part_list:
-        response_object.append(part.as_dict())
+        part_dict = add_customer_name_and_return(part)
+        response_object.append(part_dict)
 
     return jsonify(response_object)
+
+def add_customer_name_and_return(part):
+    if (not part):
+        return None
+
+    part_dict = part.as_dict()
+    customer = Customer.query.filter_by(id=part_dict['customer_id']).first()
+    purchase_order = PurchaseOrder.query.filter_by(id=part_dict['purchase_order_id']).first()
+    part_dict['customer'] = customer.name
+    part_dict['purchase_order'] = purchase_order.number
+
+    return part_dict
 
 def get_all_parts():
     all_parts = Part.query.all()
@@ -65,7 +80,7 @@ def get_all_parts_by_customerID(id):
     return convert_part_list_to_json(all_parts), 200
 
 def get_a_part(id):
-    return Part.query.filter_by(id=id).first()
+    return add_customer_name_and_return(Part.query.filter_by(id=id).first())
 
 def save_changes(data):
     db.session.add(data)
