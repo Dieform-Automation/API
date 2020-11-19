@@ -91,7 +91,7 @@ def get_all_receiving_orders():
     return receiving_orders_as_list(receiving_orders)
 
 def create_receiving_order_json(receiving_order):
-    customer = Customer.query.filter_by(id=receiving_order.customer_id).all()
+    customer = Customer.query.filter_by(id=receiving_order.customer_id).first()
 
     return {
         'id': receiving_order.id,
