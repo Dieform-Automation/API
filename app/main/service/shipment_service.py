@@ -83,13 +83,6 @@ def update_shipment(id, data):
     return shipment, 204
 
 def shipment_as_list(shipments):
-    if (not shipments):
-        response_object = {
-            'status': 'Not Found',
-            'message': 'No shipment could be found.',
-        }
-        return response_object, 404
-
     response_object = []
 
     for shipment in shipments:
@@ -116,8 +109,8 @@ def get_all_shipped_parts_from_shipment(shipped_parts):
         shipped_part_dict = shipped_part.as_dict()
         
         part = get_a_part(shipped_part_dict['part_id'])
-        shipped_part_dict['part_number'] = part.number
-        shipped_part_dict['purchase_order_id'] = part.purchase_order_id
+        shipped_part_dict['part_number'] = part['number']
+        shipped_part_dict['purchase_order'] = part['purchase_order']
 
         all_parts.append(shipped_part_dict)
     

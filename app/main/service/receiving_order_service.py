@@ -104,7 +104,7 @@ def get_all_parts_from_receiving_order(received_parts):
         received_part_dict = received_part.as_dict()
         
         part = get_a_part(received_part_dict['part_id'])
-        received_part_dict['part_number'] = part.number
+        received_part_dict['part_number'] = part['number']
 
         all_parts.append(received_part_dict)
 
@@ -116,13 +116,6 @@ def get_all_receiving_orders_by_customerID(id):
     return receiving_orders_as_list(receiving_orders)
 
 def receiving_orders_as_list(receiving_orders):
-    if (not receiving_orders):
-        response_object = {
-            'status': 'Not Found',
-            'message': 'No receiving orders could be found.',
-        }
-        return response_object, 404
-
     response_object = []
 
     for order in receiving_orders:
