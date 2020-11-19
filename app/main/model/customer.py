@@ -20,6 +20,7 @@ class Customer(db.Model):
     parts = relationship("Part")
     purchaseOrders = relationship("PurchaseOrder")
     receivingOrders = relationship("ReceivingOrder")
+    shipments = relationship("Shipment")
 
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}

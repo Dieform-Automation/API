@@ -10,6 +10,7 @@ class Shipment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.Date, default=date.today)
+    customer_id = db.Column(db.Integer, ForeignKey('customer.id'))
     shipping_method = db.Column(db.String(255), nullable=False)
 
     shippedParts = relationship("ShippedPart")

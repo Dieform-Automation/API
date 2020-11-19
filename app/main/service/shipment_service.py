@@ -2,6 +2,7 @@ from flask import jsonify
 
 from app.main import db
 from app.main.model.shipment import Shipment
+from app.main.model.customer import Customer
 from app.main.model.shipped_part import ShippedPart
 from app.main.service.shipped_part_service import save_new_shipped_part
 from app.main.service.part_service import get_a_part
@@ -14,6 +15,7 @@ def save_new_shipment(data):
     if "date" in data.keys():
         shipment = Shipment(
             date=data['date'],
+            customer_id=data['customer_id'],
             shipping_method=data['shipping_method'],
         )
     else:
@@ -96,9 +98,13 @@ def get_all_shipments():
     return shipment_as_list(shipments)
 
 def create_shipment_json(shipment):
+    customer = Customer.query.filter_by(id=shipment.customer_id).first()
+
     return {
         'id': shipment.id,
         'date': shipment.date,
+        'customer': customer.name,
+        'customer_id': shipment.customer_id,
         'shipping_method': shipment.shipping_method,
         'shipped_parts': get_all_shipped_parts_from_shipment(shipment.shippedParts)
     }

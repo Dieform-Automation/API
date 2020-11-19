@@ -3,6 +3,7 @@ from flask import jsonify
 
 from app.main import db
 from app.main.model.receiving_order import ReceivingOrder
+from app.main.model.customer import Customer
 from app.main.service.received_part_service import save_new_received_part
 from app.main.service.part_service import get_a_part
 
@@ -90,9 +91,12 @@ def get_all_receiving_orders():
     return receiving_orders_as_list(receiving_orders)
 
 def create_receiving_order_json(receiving_order):
+    customer = Customer.query.filter_by(id=receiving_order.customer_id).all()
+
     return {
         'id': receiving_order.id,
         'customer_id': receiving_order.customer_id,
+        'customer': customer.name,
         'customer_packing_slip': receiving_order.customer_packing_slip,
         'date': receiving_order.date,
         'received_parts': get_all_parts_from_receiving_order(receiving_order.receivedParts)
