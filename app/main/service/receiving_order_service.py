@@ -47,7 +47,7 @@ def save_new_receiving_order(data):
             received_part = {
                 "part_id": part['part_id'],
                 "receiving_order_id": receivable.id,
-                "part_quantity": part['part_quantity'],
+                "quantity": part['quantity'],
                 "bins": part['bins'],
                 "customer_id": data['customer_id']
             }

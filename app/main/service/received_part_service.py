@@ -7,7 +7,7 @@ def save_new_received_part(data):
     received_part = ReceivedPart(
         part_id=int(data['part_id']),
         receiving_order_id=data['receiving_order_id'],
-        part_quantity=data['part_quantity'],
+        quantity=data['quantity'],
         bins=data['bins']
     )
 
