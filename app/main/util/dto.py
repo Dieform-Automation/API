@@ -2,7 +2,7 @@ from flask_restplus import Namespace, fields
 
 received_part = {
     'part_id': fields.Integer,
-    'part_quantity': fields.Integer,
+    'quantity': fields.Integer,
     'bins': fields.Integer
 }
 
@@ -122,6 +122,7 @@ class ReceivedPartDto:
 class ShipmentDto:
     api = Namespace('shipment', description='shipment related operations')
     shipment_post = api.model('shipment_post', {
+        'customer_id': fields.Integer(required=True, description='id of the customer for a shipment'),
         'date': fields.Date(required=False, description='shipment date'),
         'shipping_method': fields.String(required=True, description='the shipping method'),
         'shipped_parts': fields.List(fields.Nested(api.model("shipped_part", shipped_part)))
