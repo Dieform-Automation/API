@@ -9,7 +9,7 @@ class ReceivedPart(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     part_id = db.Column(db.Integer, ForeignKey('part.id'))
     receiving_order_id = db.Column(db.Integer, ForeignKey('receiving_order.id'))
-    part_quantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     bins = db.Column(db.Integer, default=0)
 
     def as_dict(self):
