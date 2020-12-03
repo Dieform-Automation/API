@@ -63,7 +63,7 @@ def save_new_shipment(data):
 
         save_new_shipped_part(shipped_part)
 
-    return data, 201
+    return get_shipment(data['id'])[0], 201
 
 def update_shipment(id, data):
     response = validate(data)
