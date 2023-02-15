@@ -34,7 +34,7 @@ pytz>=2017.3
 selenium>=3.8.1
 six>=1.11.0
 SQLAlchemy>=1.2.0
-Werkzeug==0.16.1
+Werkzeug==2.2.3
 python-dotenv>=0.12.0
 blueprint>=3.4.2
 dictdiffer>=0.8.1
